@@ -1,0 +1,16 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai_video_assistant
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    volumes:
+      # Persist downloaded audio/video files
+      - ./downloads:/app/downloads
+      # Persist local Chroma vector database state
+      - ./vector_db:/app/vector_db
+    restart: unless-stopped
